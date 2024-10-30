@@ -205,3 +205,77 @@ function myHandler() {
   * designed to describe data
 * XML and related technologies (DTD, XML Schema, XPath,
   XQuery, etc.) have been standardized mainly by the World Wide Web Consortium (W3C)
+
+### Authoring XML Elements
+
+
+### Comparison between XML and JSON
+
+
+```mermaid
+graph TD
+    dblp --> masterthesis
+    masterthesis --> A[mdate] --> 2002...
+    masterthesis --> B[key] --> ms/Brown
+    masterthesis --> author --> C["Kurt P..."]
+    masterthesis --> D[title] --> PRPL
+    masterthesis --> E[year] --> 1992
+    masterthesis --> school --> Univ...
+
+    dblp --> article
+    article --> F[mdate] --> 2002
+    article --> G[key] --> tr/dec/...
+    article --> editor --> H["Paul R."]
+    article --> I[title] --> The...
+    article --> Journal --> Digital...
+    article --> volume --> SRC...
+    article --> J[year] --> 1997
+    article --> K[ee] --> db/labs/dec
+    article --> L[ee] --> https://www.
+```
+
+### Structural Constraints: Document Type Definitions (DTDs)
+* The DTD is a grammar defining XML structure
+  * XML document specifies an associated DTD, plus the root element
+  * DTD specifies children of the root (and so on)
+* DTD defines special significance for attributes:
+  * IDs - special attributes that are analogous to keys for elements
+  * **IDREF**s - references to IDs
+  * **IDREFS** - represents a list of **IDREF**s
+
+### An Example of DTD
+**Example DTD:**
+```xml
+<!ELEMENT dblp((masterthesis | article)*)>
+<!ELEMENT masterthesis(author,title,year,school,committeemember*)>
+<!ATTLIST mastersthesis(mdate CDATA #REQUIRED
+    key ID #REQUIRED
+    advisor CDATA #IMPLIED>
+<!ELEMENT author(#CDATA)>
+...
+```
+**Example use of DTD in XML file:**
+```xml
+?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE dblp SYSTEM “my.dtd">
+<dblp>...
+```
+* Occurance Indicator:
+
+| Indicator      | Occurance                   |
+|----------------|-----------------------------|
+| (no indicator) | required; only and only one |
+| ?              | Optional; None or one       |
+| *              | Optional, Repeatable; None, one, or many |
+| +              | Required, Repeatable; One or more |
+
+**Example 2 of DTD**
+```xml
+<!ELEMENT dblp((masterthesis | article)*)>
+<!ELEMENT masterthesis(author,title,year,school,committeemember*)>
+<!ATTLIST mastersthesis(mdate CDATA #REQUIRED
+    key ID #REQUIRED
+    advisor CDATA #IMPLIED>
+<!ELEMENT author(#PCDATA)>
+```
+
